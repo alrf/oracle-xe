@@ -6,4 +6,6 @@ default['oracle-xe']['oracle-password'] = 'password'
 default['oracle-xe']['start-lsnr-on-boot'] = true
 
 default['oracle-xe']['oracle-table'] = 'oratest'
+default['oracle-xe']['test-user'] = 'username'
+default['oracle-xe']['test-password'] = 'password'
 

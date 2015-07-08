@@ -28,6 +28,9 @@ ruby_block "initialize" do
     conn.exec("CREATE TABLE #{node['oracle-xe']['oracle-table']} (a number, b varchar2(10))")
     conn.exec("INSERT INTO #{node['oracle-xe']['oracle-table']}(a,b) values (1,'a')")
     conn.exec("INSERT INTO #{node['oracle-xe']['oracle-table']}(a,b) values (2,'b')")
+    conn.exec("CREATE USER #{node['oracle-xe']['test-user']} IDENTIFIED BY #{node['oracle-xe']['test-password']}")
+    conn.exec("GRANT CONNECT TO #{node['oracle-xe']['test-user']}")
+    conn.exec("GRANT SELECT on system.#{node['oracle-xe']['oracle-table']} TO #{node['oracle-xe']['test-user']}")
     conn.commit
     conn.logoff
   end

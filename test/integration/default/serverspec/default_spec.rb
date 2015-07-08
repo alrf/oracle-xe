@@ -12,13 +12,27 @@ describe "Oracle server" do
   end
 end
 
-describe "SQL data exist" do
+describe "SQL data exist via system user" do
   describe command('su - oracle -c "sqlplus -s system/password <<EOF
     set lin 1000
     set pages 0
     set trims on
     set tab off
-    select * from oratest;
+    select * from system.oratest;
+    exit
+    EOF
+  "') do
+    its(:stdout) { should match /2 b/ }
+  end
+end
+
+describe "SQL data exist via NOT system user" do
+  describe command('su - oracle -c "sqlplus -s username/password <<EOF
+    set lin 1000
+    set pages 0
+    set trims on
+    set tab off
+    select * from system.oratest;
     exit
     EOF
   "') do
